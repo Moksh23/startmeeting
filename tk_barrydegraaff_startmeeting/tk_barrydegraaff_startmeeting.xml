@@ -1,0 +1,9 @@
+<zimlet name="tk_barrydegraaff_startmeeting" version="0.0.1" label="${msg.StartMeetingZimlet_label}" description="${msg.StartMeetingZimlet_slogan}">
+   <summary></summary>
+   <resource>StartMeeting.png</resource>
+   <include>tk_barrydegraaff_startmeeting.js</include>
+   <handlerObject>tk_barrydegraaff_startmeeting_HandlerObject</handlerObject>
+   <includeCSS>tk_barrydegraaff_startmeeting.css</includeCSS>
+   <zimletPanelItem label="${msg.StartMeetingZimlet_label}" icon="tk_barrydegraaff_startmeeting-panelIcon">
+   </zimletPanelItem>
+</zimlet>
