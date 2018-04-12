@@ -1,6 +1,6 @@
 # Zimbra StartMeeting integration (development not for production)
 
-StartMeeting easy-to-use online meetings with HD audio, video conferencing and screen sharing. It is not a free service so contact Start Meeting Sales if you want a trial.
+StartMeeting easy-to-use online meetings with HD audio, video conferencing and screen sharing. If you are interested in using Start Meeting in your company contact Brandon Klein (bklein@freeconferencecall.com).
 
 This Zimlet allows you to add Start Meeting information to your Zimbra appointments to share the online meeting link with participants.
 
