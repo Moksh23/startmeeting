@@ -1,10 +1,10 @@
 # Zimbra StartMeeting integration (development not for production)
 
-StartMeeting easy-to-use online meetings with HD audio, video conferencing and screen sharing. If you are interested in using Start Meeting in your company contact Brandon Klein (bklein@freeconferencecall.com).
+StartMeeting easy-to-use online meetings with HD audio, video conferencing and screen sharing. If you are interested in using StartMeeting in your company contact Brandon Klein (bklein@freeconferencecall.com).
 
-This Zimlet allows you to add Start Meeting information to your Zimbra appointments to share the online meeting link with participants.
+This Zimlet allows you to add StartMeeting information to your Zimbra appointments to share the online meeting link with participants.
 
-The Zimlet also allows you to join/host a Start Meeting if you receive an email or calendar invite with a Start Meeting Link.
+The Zimlet also allows you to join/host a Start Meeting if you receive an email or calendar invite with a StartMeeting Link.
 
 ![alt tag](https://raw.githubusercontent.com/Zimbra-Community/startmeeting/master/help/screenshot.png)
 
