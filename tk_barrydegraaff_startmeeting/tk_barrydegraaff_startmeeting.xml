@@ -1,9 +1,9 @@
-<zimlet name="tk_barrydegraaff_startmeeting" version="0.0.1" label="${msg.StartMeetingZimlet_label}" description="${msg.StartMeetingZimlet_slogan}">
+<zimlet name="tk_barrydegraaff_startmeeting" version="0.0.1" label="StartMeeting" description="StartMeeting easy-to-use online meetings with HD audio, video conferencing and screen sharing.">
    <summary></summary>
    <resource>StartMeeting.png</resource>
    <include>tk_barrydegraaff_startmeeting.js</include>
    <handlerObject>tk_barrydegraaff_startmeeting_HandlerObject</handlerObject>
    <includeCSS>tk_barrydegraaff_startmeeting.css</includeCSS>
-   <zimletPanelItem label="${msg.StartMeetingZimlet_label}" icon="tk_barrydegraaff_startmeeting-panelIcon">
+   <zimletPanelItem label="StartMeeting" icon="tk_barrydegraaff_startmeeting-panelIcon">
    </zimletPanelItem>
 </zimlet>

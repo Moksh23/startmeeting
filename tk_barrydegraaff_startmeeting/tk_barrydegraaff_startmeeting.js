@@ -1,5 +1,5 @@
 /**
-This file is part of the Start Meeting Zimlet
+This file is part of the StartMeeting Zimlet
 Copyright (C) 2014-2018  Barry de Graaff
 
 Bugs and feedback: https://github.com/Zimbra-Community/startmeeting/issues
@@ -141,7 +141,7 @@ StartMeeting.prototype.initializeToolbar = function(app, toolbar, controller, vi
 StartMeeting.prototype._initCalendarStartMeetingToolbar = function(toolbar, controller) {
    var zimletInstance = appCtxt._zimletMgr.getZimletByName('tk_barrydegraaff_startmeeting').handlerObject;
 	if (!toolbar.getButton("STARTMEETING")) {
-		ZmMsg.sforceAdd = this.getMessage("StartMeetingZimlet_saveAsStartMeeting");
+		//ZmMsg.sforceAdd = this.getMessage("StartMeetingZimlet_saveAsStartMeeting");
 		var buttonIndex = toolbar.opList.length + 1;
 		var button = toolbar.createOp("STARTMEETING", {image:"tk_barrydegraaff_startmeeting-panelIcon", text:"StartMeeting", index:buttonIndex});
 		toolbar.addOp("STARTMEETING", buttonIndex);
@@ -151,11 +151,11 @@ StartMeeting.prototype._initCalendarStartMeetingToolbar = function(toolbar, cont
 		button.noMenuBar = true;
 		button.removeAllListeners();
 		button.removeDropDownSelectionListener();
-  
-      var mi = menu.createMenuItem(Dwt.getNextId(), {image:"tk_barrydegraaff_startmeeting-panelIcon", text:zimletInstance.getMessage("StartMeetingZimlet_joinHostMeeting")});
+
+      var mi = menu.createMenuItem(Dwt.getNextId(), {image:"tk_barrydegraaff_startmeeting-panelIcon", text:(zimletInstance.getMessage('StartMeetingZimlet_joinHostMeeting').indexOf('???') == 0) ? 'Join or Host Meeting' : zimletInstance.getMessage('StartMeetingZimlet_joinHostMeeting')});
 	   mi.addSelectionListener(new AjxListener(this, this._StartMeetingHandler, [controller]));
-    
-      var mi = menu.createMenuItem(Dwt.getNextId(), {image:"Add", text:zimletInstance.getMessage("StartMeetingZimlet_addMeetingDetails")});
+
+      var mi = menu.createMenuItem(Dwt.getNextId(), {image:"Add", text:(zimletInstance.getMessage('StartMeetingZimlet_addMeetingDetails').indexOf('???') == 0) ? 'Add StartMeeting information to the Appointment' : zimletInstance.getMessage('StartMeetingZimlet_addMeetingDetails')});    
 	   mi.addSelectionListener(new AjxListener(this, this._AddStartMeetingLinkHandler, [controller]));
 	}
 };
