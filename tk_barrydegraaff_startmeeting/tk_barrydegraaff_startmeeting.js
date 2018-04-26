@@ -227,6 +227,6 @@ StartMeeting.prototype._StartMeetingHandler = function(controller) {
    }
    else
    {
-      window.open(StartMeeting.URL);
+      window.open(StartMeeting.URL+'/wall/'+StartMeeting.username);
    }
 };
