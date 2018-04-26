@@ -20,4 +20,6 @@ You must download a copy of the Zimlet using git, configure your companies Start
     zip tk_barrydegraaff_startmeeting.zip *
     su zimbra
     zmzimletctl deploy tk_barrydegraaff_startmeeting.zip
+    zmprov mc default +zimbraProxyAllowedDomains *.startmeeting.com
+
 

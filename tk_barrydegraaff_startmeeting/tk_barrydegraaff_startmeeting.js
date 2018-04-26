@@ -46,7 +46,8 @@ StartMeeting.prototype.init = function() {
    var zimletInstance = appCtxt._zimletMgr.getZimletByName('tk_barrydegraaff_startmeeting').handlerObject;   
    var username = appCtxt.getActiveAccount().name.match(/.*@/);
    username = username[0].replace('@','');
-   StartMeeting.wall = zimletInstance._zimletContext.getConfig('startMeetingURL') + '/wall/' + username;
+   StartMeeting.URL = zimletInstance._zimletContext.getConfig('startMeetingURL');
+   StartMeeting.username = username;
    } catch (err)
    {console.log('StartMeeting zimlet init error: '+err);}
 };
@@ -86,7 +87,7 @@ function() {
  * @param {string} type - the style of the message e.g. ZmStatusView.LEVEL_INFO, ZmStatusView.LEVEL_WARNING, ZmStatusView.LEVEL_CRITICAL
  * */
 StartMeeting.prototype.status = function(text, type) {
-   var transitions = [ ZmToast.FADE_IN, ZmToast.PAUSE, ZmToast.PAUSE, ZmToast.PAUSE, ZmToast.FADE_OUT ];
+   var transitions = [ ZmToast.FADE_IN, ZmToast.PAUSE, ZmToast.PAUSE, ZmToast.FADE_OUT ];
    appCtxt.getAppController().setStatusMsg(text, type, null, transitions);
 }; 
 
@@ -98,7 +99,7 @@ function() {
    zimletInstance._dialog.setContent(
    '<div style="width:450px; height:160px;">'+
    '<img style="margin:10px;margin-left:0px;" src="'+zimletInstance.getResource("logo.svg")+'">'+   
-   'Open your wall : <a href="'+StartMeeting.wall+'" target="_blank">'+StartMeeting.wall + '</a>' +
+   'Open your wall : <a href="'+StartMeeting.URL+'/wall/'+StartMeeting.username+'" target="_blank">'+StartMeeting.URL +'/wall/'+StartMeeting.username+ '</a>' +
    '</div>'
    );
    
@@ -161,22 +162,60 @@ StartMeeting.prototype._initCalendarStartMeetingToolbar = function(toolbar, cont
 };
 
 StartMeeting.prototype._AddStartMeetingLinkHandler = function(controller) {
-   var message = 'Online Meeting Link:\r\n[meetinglink]\r\n\r\nInstructions:\r\nTo join the online meeting, click on the meeting link listed above and follow the prompts to join the meeting (no need to install software or browser add-ons).\r\n\r\nIf you have audio or Internet troubles you can call to the dial-in numbers listed in the link above.\r\n';   
-   var editorType = "HTML";
-   if (controller._composeView.getComposeMode() != "text/html") {
-      editorType = "PLAIN_TEXT";
-   }
-   var currentContent = controller._composeView.getHtmlEditor().getContent();
-   var newContent = [];
-   if (editorType == "HTML") {
-      newContent.push(currentContent.substr(0, currentContent.lastIndexOf("</body></html>")));
-      newContent.push(message.replace(/\r\n/g,'<br>').replace('[meetinglink]','<a href="'+StartMeeting.wall+'" target="_blank">'+StartMeeting.wall + '</a>'));
-      newContent.push("</body></html>");
-   }
-   else {
-      newContent.push(currentContent + '\r\n\r\n' +message.replace('[meetinglink]',StartMeeting.wall));
-   }
-   controller._composeView.getHtmlEditor().setContent(newContent.join(""));   
+   StartMeeting.prototype.status(ZmMsg.loading, ZmStatusView.LEVEL_INFO);
+   var xhr = new XMLHttpRequest();
+   xhr.open( "GET", '/service/proxy?target='+StartMeeting.URL+'/wall/'+StartMeeting.username, true );
+   xhr.send( );
+   xhr.onreadystatechange = function (oEvent) 
+   {  
+      var access_code = "";
+      if (xhr.readyState === 4) 
+      {  
+         if (xhr.status === 200) 
+         {
+            try
+            {
+               access_code = xhr.response.match(/access_code":"(.{6})"/m);
+               access_code = access_code[1];
+            }
+            catch(err)
+            {
+            }
+         }
+         
+         if(access_code.length > 0)
+         {
+            access_code = 'using Access Code: ' + access_code; 
+         }
+         
+         var message = 'To join the Meeting Online go to:\r\n[meetinglink]\r\n\r\nIf you have audio or Internet problems you can join\r\nby calling to the dial-in numbers listed here:\r\n[meetinglink-international] \r\n[access_code]\r\n';   
+         var editorType = "HTML";
+         if (controller._composeView.getComposeMode() != "text/html") {
+            editorType = "PLAIN_TEXT";
+         }
+         var currentContent = controller._composeView.getHtmlEditor().getContent();
+         var newContent = [];
+         if (editorType == "HTML") {
+            newContent.push(currentContent.substr(0, currentContent.lastIndexOf("</body></html>")));
+            newContent.push(message
+               .replace(/\r\n/g,'<br>')
+               .replace('[meetinglink]','<a href="'+StartMeeting.URL+'/wall/'+StartMeeting.username+'" target="_blank">'+StartMeeting.URL+'/wall/'+StartMeeting.username+ '</a>')
+               .replace('[meetinglink-international]','<a href="'+StartMeeting.URL+'/wall/'+StartMeeting.username+'/#international" target="_blank">'+StartMeeting.URL+'/wall/'+StartMeeting.username+ '/#international</a>')
+               .replace('[access_code]',access_code)
+            );
+            
+            newContent.push("</body></html>");
+         }
+         else {
+            newContent.push(currentContent + '\r\n\r\n' +message
+               .replace('[meetinglink]',StartMeeting.URL+'/wall/'+StartMeeting.username)
+               .replace('[meetinglink-international]',StartMeeting.URL+'/wall/'+StartMeeting.username+'/#international')
+               .replace('[access_code]',access_code)
+            );
+         }
+         controller._composeView.getHtmlEditor().setContent(newContent.join(""));
+      }     
+   } 
 };
 
 StartMeeting.prototype._StartMeetingHandler = function(controller) {
@@ -188,6 +227,6 @@ StartMeeting.prototype._StartMeetingHandler = function(controller) {
    }
    else
    {
-      window.open(StartMeeting.wall);
+      window.open(StartMeeting.URL);
    }
 };
