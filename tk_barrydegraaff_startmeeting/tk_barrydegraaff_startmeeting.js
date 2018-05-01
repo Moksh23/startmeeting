@@ -208,7 +208,7 @@ StartMeeting.prototype._AddStartMeetingLinkHandler = function(controller) {
             newContent.push(currentContent.substr(0, currentContent.lastIndexOf("</body></html>")));
             newContent.push(message
                .replace(/\r\n/g,'<br>')
-               .replace('[meetinglink]','<a href="'+StartMeeting.URL+'/wall/'+StartMeeting.username+'" target="_blank">'+StartMeeting.URL+'/wall/'+StartMeeting.username+ '</a>')
+               .replace('[meetinglink]','<a href="'+StartMeeting.URL+'/join/'+StartMeeting.username+'" target="_blank">'+StartMeeting.URL+'/join/'+StartMeeting.username+ '</a>')
                .replace('[meetinglink-international]','<a href="'+StartMeeting.URL+'/wall/'+StartMeeting.username+'/#international" target="_blank">'+StartMeeting.URL+'/wall/'+StartMeeting.username+ '/#international</a>')
                .replace('[access_code]',access_code)
             );
@@ -217,7 +217,7 @@ StartMeeting.prototype._AddStartMeetingLinkHandler = function(controller) {
          }
          else {
             newContent.push(currentContent + '\r\n\r\n' +message
-               .replace('[meetinglink]',StartMeeting.URL+'/wall/'+StartMeeting.username)
+               .replace('[meetinglink]',StartMeeting.URL+'/join/'+StartMeeting.username)
                .replace('[meetinglink-international]',StartMeeting.URL+'/wall/'+StartMeeting.username+'/#international')
                .replace('[access_code]',access_code)
             );
@@ -236,6 +236,6 @@ StartMeeting.prototype._StartMeetingHandler = function(controller) {
    }
    else
    {
-      window.open(StartMeeting.URL+'/wall/'+StartMeeting.username);
+      window.open(StartMeeting.URL+'/join/'+StartMeeting.username);
    }
 };
