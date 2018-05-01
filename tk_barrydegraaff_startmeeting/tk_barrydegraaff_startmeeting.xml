@@ -4,6 +4,4 @@
    <include>tk_barrydegraaff_startmeeting.js</include>
    <handlerObject>tk_barrydegraaff_startmeeting_HandlerObject</handlerObject>
    <includeCSS>tk_barrydegraaff_startmeeting.css</includeCSS>
-   <zimletPanelItem label="StartMeeting" icon="tk_barrydegraaff_startmeeting-panelIcon">
-   </zimletPanelItem>
 </zimlet>
