@@ -183,9 +183,18 @@ StartMeeting.prototype._AddStartMeetingLinkHandler = function(controller) {
             }
          }
          
-         if(access_code.length > 0)
+         if(access_code){
+            if(access_code.length > 0)
+            {
+               access_code = 'using Access Code: ' + access_code; 
+            }
+            else{
+               access_code = "";
+            }
+         }
+         else
          {
-            access_code = 'using Access Code: ' + access_code; 
+             access_code = "";
          }
          
          var message = 'To join the Meeting Online go to:\r\n[meetinglink]\r\n\r\nIf you have audio or Internet problems you can join\r\nby calling to the dial-in numbers listed here:\r\n[meetinglink-international] \r\n[access_code]\r\n';   
